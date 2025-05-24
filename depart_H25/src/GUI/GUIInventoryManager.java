@@ -1,4 +1,4 @@
-package GUI;
+package Item.GUI;
 
 import Exceptions.ExceptionInsufficientQuantityInStock;
 import Exceptions.ExceptionItemAlreadyExists;
