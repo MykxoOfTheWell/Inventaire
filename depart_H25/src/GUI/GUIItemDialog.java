@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Item.Item.Item;
+import Item.Item.*;
 
 public class GUIItemDialog extends JDialog {
     private Item item;

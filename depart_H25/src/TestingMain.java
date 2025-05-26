@@ -1,9 +1,9 @@
 package Item;
 
-import Exceptions.ExceptionInsufficientQuantityInStock;
-import Exceptions.ExceptionItemAlreadyExists;
-import Exceptions.ExceptionItemNotFound;
-import Inventaire.InventoryManager;
+import Item.Exceptions.ExceptionInsufficientQuantityInStock;
+import Item.Exceptions.ExceptionItemAlreadyExists;
+import Item.Exceptions.ExceptionItemNotFound;
+import Item.Inventaire.InventoryManager;
 
 public class TestingMain  {
 

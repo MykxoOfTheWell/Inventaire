@@ -1,15 +1,15 @@
 package Item.GUI;
 
-import Exceptions.ExceptionInsufficientQuantityInStock;
-import Exceptions.ExceptionItemAlreadyExists;
-import Exceptions.ExceptionItemNotFound;
+import Item.Exceptions.ExceptionInsufficientQuantityInStock;
+import Item.Exceptions.ExceptionItemAlreadyExists;
+import Item.Exceptions.ExceptionItemNotFound;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import Inventaire.*;
+import Item.Inventaire.*;
 import Item.Item.Category;
 import Item.Item.Item;
 
