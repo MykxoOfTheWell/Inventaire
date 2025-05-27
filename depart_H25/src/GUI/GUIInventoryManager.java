@@ -9,6 +9,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.Objects;
+
 import Item.Inventaire.*;
 import Item.Item.Category;
 import Item.Item.Item;
@@ -194,7 +196,7 @@ public class GUIInventoryManager extends JFrame
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton newItemButton = new JButton(new ImageIcon(getClass().getResource("../icons/new.png")));
+        JButton newItemButton = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../icons/new.png"))));
         newItemButton.addActionListener(event -> {
             GUIItemChoiceDialog guiItemChoiceDialog = new GUIItemChoiceDialog(this);
 

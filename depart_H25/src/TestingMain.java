@@ -6,6 +6,9 @@ import Item.Exceptions.ExceptionItemNotFound;
 import Item.GUI.GUIInventoryManager;
 import Item.Inventaire.InventoryManager;
 import Item.Item.Item;
+import Item.Item.ItemMilk;
+
+import java.io.*;
 
 public class TestingMain  {
 
@@ -20,7 +23,7 @@ public class TestingMain  {
         //         Éventuellement, vous devriez obtenir le même résultat que dans le clip de l'énoncé
 
         InventoryManager inventoryManager = new InventoryManager();
-        //IO//lireInventaire("items.in",inventoryManager);                                          // 9 points
+        lireInventaire("items.in",inventoryManager);                                          // 9 points
         System.out.println("\n=> TEST Création de nouveaux items");                                 // 6 points
         inventoryManager.addNewBreadItem(10, "Pain brun riche", 2.45, "brun", 200);
         inventoryManager.addNewBreadItem(11, "Pain blanc traditionnel", 1.50, "blanc", 200);
@@ -102,5 +105,45 @@ public class TestingMain  {
         //IO//ecrireInventaire("items.out",inventoryManager);                                       // 9 points
 
         GUIInventoryManager GUIInventoryManager = new GUIInventoryManager(inventoryManager);   // 20 points
+    }
+    public static void lireInventaire (String nomFichier, InventoryManager inventoryManager) throws FileNotFoundException {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("depart_H 25/" + nomFichier));
+            String ligne;
+            while ((ligne = reader.readLine()) != null) {
+                String[] attributs = ligne.split("]");
+
+                //On garde juste les valeurs
+                for (int i = 0; i < attributs.length; i++) {
+                    attributs[i] = attributs[i].replaceAll(".*\\[(.*)", "$1");
+                }
+
+                int ID = Integer.parseInt(attributs[1]);
+                String name = attributs[2];
+                double price = Double.parseDouble(attributs[3]);
+
+
+                switch(attributs[0]) {
+                   case "Milk":
+                       inventoryManager.addNewMilkItem(ID,name,price,
+                               Double.parseDouble(attributs[4]),Double.parseDouble(attributs[5]));
+                       break;
+                   case "Bread":
+                       inventoryManager.addNewBreadItem(ID,name,price,
+                               attributs[4], Integer.parseInt(attributs[5]));
+                       break;
+                   case "Eggs":
+                       inventoryManager.addNewEggsItem(ID,name,price,
+                               attributs[4], Integer.parseInt(attributs[5]));
+                       break;
+                   default:
+                       throw new Error("Une ligne d'entrée n'a pas une catégorie valable" + ligne);
+               }
+            }
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la lecture du fichier: " + nomFichier);
+            e.printStackTrace();
+        }
+
     }
 }

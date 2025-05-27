@@ -12,8 +12,7 @@ public class ItemEggs extends Item{
 
     @Override
     public Category getCategory() {
-
-        return null;
+        return Category.Eggs;
     }
 
     @Override
