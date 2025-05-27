@@ -90,7 +90,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createViewButton() {
-        JButton button = new JButton(new ImageIcon("icons/view.png"));
+        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/view.png")));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -102,6 +102,7 @@ public class GUIInventoryManager extends JFrame
                 // TODO -- Ajoutez le code pour ouvrir le dialogue de visualisation d'un item
                 //         ainsi que la gestion des erreurs possibles si nécessaire
                 //
+
             }
         });
 
@@ -109,7 +110,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createIncreaseButton() {
-        JButton button = new JButton(new ImageIcon("icons/increase.png"));
+        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/increase.png")));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -128,7 +129,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createDecreaseButton() {
-        JButton button = new JButton(new ImageIcon("icons/decrease.png"));
+        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/decrease.png")));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -148,7 +149,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createEditButton() {
-        JButton button = new JButton(new ImageIcon("icons/edit.png"));
+        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/edit.png")));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -168,7 +169,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createDeleteButton() {
-        JButton button = new JButton(new ImageIcon("icons/delete.png"));
+        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/delete.png")));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -193,7 +194,7 @@ public class GUIInventoryManager extends JFrame
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        JButton newItemButton = new JButton(new ImageIcon("icons/new.png"));
+        JButton newItemButton = new JButton(new ImageIcon(getClass().getResource("../icons/new.png")));
         newItemButton.addActionListener(event -> {
             GUIItemChoiceDialog guiItemChoiceDialog = new GUIItemChoiceDialog(this);
 
@@ -255,8 +256,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private Border buttonBorder() {
-
-        return BorderFactory.createEmptyBorder(0, 5, 10 , 5);
+        return BorderFactory.createEmptyBorder(0, 0, 0 , 0);
     }
 
 

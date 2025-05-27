@@ -49,17 +49,12 @@ public abstract class Item {
     }
 
     public String infoToString() {
-        return  "ID: \t" + this.getID() + "\n " +
-                "Name: \t" + this.getName() + "\n " +
-                "Price: \t" + this.getPrice() + "\n " +
-                "In stock: \t" + this.getQuantityInStock() + "\n ";
+        return  "ID: \t" + this.getID() + "\n" +
+                "Name: \t" + this.getName() + "\n" +
+                "Price: \t" + this.getPrice() + "\n" +
+                "In stock: \t" + this.getQuantityInStock() + "\n";
     }
     public String toString() {
-        return "Item{" +
-                ", ID=" + ID +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantityInStock=" + quantityInStock +
-                '}';
+        return ID+": " + this.getCategory() + " - " + this.getName() + " ("+this.quantityInStock+")" ;
     }
 }

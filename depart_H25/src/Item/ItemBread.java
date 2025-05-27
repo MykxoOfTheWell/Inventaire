@@ -37,7 +37,7 @@ public class ItemBread extends Item{
     public String infoToString() {
         return super.infoToString() +
                 "Color: \t" + color + "\n" +
-                "Weight: \t"+ weight + " \n ";
+                "Weight: \t"+ weight + "\n";
 
     }
 }

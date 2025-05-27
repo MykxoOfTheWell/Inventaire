@@ -13,23 +13,23 @@ public class InventoryDatabase {
 
     public void insert(Item item) {
         InventoryDatabaseNode newNode = new InventoryDatabaseNode(item);
-        if (first == null) {
-            first = newNode;
-        }
-        newNode.next=first;
+        newNode.next = first;
         first = newNode;
         this.itemsCount++;
     }
-    public Item findByItem (int ID) throws ExceptionItemNotFound {
+
+    public Item findByItem(int ID) throws ExceptionItemNotFound {
         InventoryDatabaseNode currentItem = first;
-        while (currentItem.item.getID() != ID) {
-            if (currentItem.next == null) {
-                throw new ExceptionItemNotFound("No item with ID: '" + ID +"' was found.");
+
+        while (currentItem != null) {
+            if (currentItem.item.getID() == ID) {
+                return currentItem.item;
             }
             currentItem = currentItem.next;
         }
-        return currentItem.item;
+        throw new ExceptionItemNotFound(ID);
     }
+
     public void remove(int ID) throws ExceptionItemNotFound {
         if (ID < 0) {
             throw new IllegalArgumentException("ID cannot be a negative number");
@@ -42,7 +42,7 @@ public class InventoryDatabase {
         }
 
         if (currentItem == null) {
-            throw new ExceptionItemNotFound("No item with ID: '" + ID + "' could be removed.");
+            throw new ExceptionItemNotFound(ID);
         }
 
         if (previousItem == null) {
@@ -63,7 +63,6 @@ public class InventoryDatabase {
             array[i++] = currentItem.item;
             currentItem = currentItem.next;
         }
-
         return array;
     }
 
