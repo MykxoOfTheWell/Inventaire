@@ -92,7 +92,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createViewButton() {
-        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/view.png")));
+        JButton button = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../icons/view.png"))));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -100,10 +100,12 @@ public class GUIInventoryManager extends JFrame
             if (item == null) {
                 showSelectErrorDialog();
             } else {
-                //
-                // TODO -- Ajoutez le code pour ouvrir le dialogue de visualisation d'un item
-                //         ainsi que la gestion des erreurs possibles si nécessaire
-                //
+                try {
+                    GUIItemViewDialog dialog = new GUIItemViewDialog(this, item);
+                    dialog.setVisible(true);
+                } catch (Exception e) {
+                    showErrorDialog("Erreur lors de l'ouverture de la vue de l'item.");
+                }
 
             }
         });
@@ -112,7 +114,7 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createIncreaseButton() {
-        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/increase.png")));
+        JButton button = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../icons/increase.png"))));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -120,18 +122,18 @@ public class GUIInventoryManager extends JFrame
             if (item == null) {
                 showSelectErrorDialog();
             } else {
-                //
-                // TODO -- Ajoutez le code nécessaire pour augmenter la quantité d'un item
-                //         ainsi que la gestion des erreurs possibles si nécessaire
-                //
+                GUIIncreaseQuantityDialog dialog = new GUIIncreaseQuantityDialog(this, item);
+                dialog.showAndProcess();
+                itemsListModel.setElementAt(item, itemsList.getSelectedIndex()); // rafraîchit la liste visuellement
             }
         });
 
         return button;
     }
+
 
     private JButton createDecreaseButton() {
-        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/decrease.png")));
+        JButton button = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../icons/decrease.png"))));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -139,19 +141,18 @@ public class GUIInventoryManager extends JFrame
             if (item == null) {
                 showSelectErrorDialog();
             } else {
-                //
-                // TODO -- Ajoutez le code nécessaire pour réduire la quantité ainsi que la gestion des
-                //  erreurs et afficher un dialogue d'erreur si jamais on essaye d'aller en dessous de zéro
-                //
-
+                GUIDecreaseQuantityDialog dialog = new GUIDecreaseQuantityDialog(this, item);
+                dialog.showAndProcess();
+                itemsListModel.setElementAt(item, itemsList.getSelectedIndex()); // Mise à jour visuelle
             }
         });
 
         return button;
     }
 
+
     private JButton createEditButton() {
-        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/edit.png")));
+        JButton button = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../icons/edit.png"))));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
@@ -171,26 +172,25 @@ public class GUIInventoryManager extends JFrame
     }
 
     private JButton createDeleteButton() {
-        JButton button = new JButton(new ImageIcon(getClass().getResource("../icons/delete.png")));
+        JButton button = new JButton(new ImageIcon(Objects.requireNonNull(getClass().getResource("../icons/delete.png"))));
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
-            Item item = (Item)itemsList.getSelectedValue();
+            Item item = (Item) itemsList.getSelectedValue();
             if (item == null) {
                 showSelectErrorDialog();
-            }
-            else {
-                //
-                // TODO -- Ajoutez le code nécessaire pour supprimer un item ainsi que la gestion des
-                //         erreurs pour afficher un dialogue d'erreur si jamais on essaye d'effacer un
-                //         item qui n'existe pas
-                //
-
+            } else {
+                GUIDeleteItemDialog dialog = new GUIDeleteItemDialog(this, inventoryManager, item);
+                boolean deleted = dialog.showAndDelete();
+                if (deleted) {
+                    itemsListModel.removeElement(item);
+                }
             }
         });
 
         return button;
     }
+
 
     private JPanel createNewButton() {
         JPanel buttonPanel = new JPanel();

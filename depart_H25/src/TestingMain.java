@@ -108,7 +108,7 @@ public class TestingMain  {
     }
     public static void lireInventaire (String nomFichier, InventoryManager inventoryManager) throws FileNotFoundException {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("depart_H 25/" + nomFichier));
+            BufferedReader reader = new BufferedReader(new FileReader("depart_H25/" + nomFichier));
             String ligne;
             while ((ligne = reader.readLine()) != null) {
                 String[] attributs = ligne.split("]");
