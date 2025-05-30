@@ -15,7 +15,7 @@ public class GUIDecreaseQuantityDialog {
         this.item = item;
     }
 
-    public void showAndProcess() {
+    public void Diminuer() {
         String input = JOptionPane.showInputDialog(
                 parent,
                 "Quantité actuelle : " + item.getQuantityInStock() + "\nEntrez la quantité à diminuer :",

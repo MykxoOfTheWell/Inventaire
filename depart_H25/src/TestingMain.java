@@ -6,6 +6,8 @@ import Item.Exceptions.ExceptionItemNotFound;
 import Item.GUI.GUIInventoryManager;
 import Item.Inventaire.InventoryManager;
 import Item.Item.Item;
+import Item.Item.ItemBread;
+import Item.Item.ItemEggs;
 import Item.Item.ItemMilk;
 
 import java.io.*;
@@ -102,7 +104,7 @@ public class TestingMain  {
         for (Item item : items) {
             System.out.println(item.infoToString());
         }
-        //IO//ecrireInventaire("items.out",inventoryManager);                                       // 9 points
+        ecrireInventaire("items.out",inventoryManager);                                       // 9 points
 
         GUIInventoryManager GUIInventoryManager = new GUIInventoryManager(inventoryManager);   // 20 points
     }
@@ -146,4 +148,34 @@ public class TestingMain  {
         }
 
     }
-}
+        public static void ecrireInventaire(String nomFichier, InventoryManager inventoryManager) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("depart_H25/" + nomFichier))) {
+                for (Item item : inventoryManager.getArrayOfItems()) {
+                    StringBuilder ligne = new StringBuilder();
+                    //je n'utilise pas .toString() pcq'il y a des line break
+                    ligne.append("Catégorie [").append(item.getCategory()).append("] ");
+                    ligne.append("ID [").append(item.getID()).append("] ");
+                    ligne.append("Nom [").append(item.getName()).append("] ");
+                    ligne.append("Prix [").append(item.getPrice()).append("] ");
+
+                    if (item instanceof ItemMilk milk) {
+                        ligne.append("Gras [").append(milk.getFat()).append("] ");
+                        ligne.append("Litres [").append(milk.getLiters()).append("]");
+                    } else if (item instanceof ItemBread bread) {
+                        ligne.append("Couleur [").append(bread.getColor()).append("] ");
+                        ligne.append("Poids [").append(bread.getWeight()).append("]");
+                    } else if (item instanceof ItemEggs eggs) {
+                        ligne.append("Couleur [").append(eggs.getColor()).append("] ");
+                        ligne.append("Nombre [").append(eggs.getNumber()).append("]");
+                    }
+
+                    writer.write(ligne.toString());
+                    writer.newLine();
+                }
+                System.out.println("Inventaire écrit avec succès dans " + nomFichier);
+            } catch (IOException e) {
+                System.err.println("Erreur lors de l'écriture du fichier : " + nomFichier);
+                e.printStackTrace();
+            }
+        }
+    }

@@ -1,9 +1,5 @@
 package Item.GUI;
 
-import Item.Exceptions.ExceptionInsufficientQuantityInStock;
-import Item.Exceptions.ExceptionItemAlreadyExists;
-import Item.Exceptions.ExceptionItemNotFound;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -142,7 +138,7 @@ public class GUIInventoryManager extends JFrame
                 showSelectErrorDialog();
             } else {
                 GUIDecreaseQuantityDialog dialog = new GUIDecreaseQuantityDialog(this, item);
-                dialog.showAndProcess();
+                dialog.Diminuer();
                 itemsListModel.setElementAt(item, itemsList.getSelectedIndex()); // Mise à jour visuelle
             }
         });
@@ -156,16 +152,15 @@ public class GUIInventoryManager extends JFrame
         button.setBorder(buttonBorder());
 
         button.addActionListener(event -> {
-            Item item = (Item) itemsList.getSelectedValue();
-            if (item == null) {
+            Item selectedItem = (Item) itemsList.getSelectedValue();
+            if (selectedItem == null) {
                 showSelectErrorDialog();
-            } else {
-                //
-                // TODO -- Ajoutez le code pour ouvrir le dialogue d'édition d'un item
-                //         ainsi que la gestion des erreurs possibles si nécessaire
-                //
-
+                return;
             }
+
+            GUIEditItemDialog editDialog = new GUIEditItemDialog(this, selectedItem);
+            editDialog.setVisible(true);
+            itemsList.repaint();
         });
 
         return button;
@@ -213,14 +208,6 @@ public class GUIInventoryManager extends JFrame
                 @Override
                 public void componentHidden(ComponentEvent e) {
                     Category category = guiItemChoiceDialog.getChosenCategory();
-                    //
-                    // TODO -- Ajoutez le code nécessaire pour la création d'un nouvel item
-                    //         ainsi que la gestion des erreurs possibles si nécessaire
-                    //
-                    //         Conseil: Vous pourriez ajouter un item avec des valeurs temporaires puis demander
-                    //         à l'utilisateur de les remplacer dans le dialogue de modification d'item.
-                    //
-
                 }
             });
 
@@ -229,7 +216,7 @@ public class GUIInventoryManager extends JFrame
 
         newItemButton.setBorder(buttonNewBorder());
         buttonPanel.add(newItemButton);
-
+        refreshMainPanel();
         return buttonPanel;
     }
 
@@ -241,6 +228,11 @@ public class GUIInventoryManager extends JFrame
     private void showErrorDialog(String message) {
         GUIErrorDialog dialog = new GUIErrorDialog(this, message);
         dialog.setVisible(true);
+    }
+    private void refreshMainPanel() {
+        itemsList.removeAll();
+        itemsList.revalidate();
+        itemsList.repaint();
     }
 
     private Border border() {

@@ -4,7 +4,7 @@ public class ItemBread extends Item{
     protected String color;
     protected double weight;
 
-    public ItemBread (int ID, String name, double price, String color, int weight){
+    public ItemBread (int ID, String name, double price, String color, double weight){
         super(ID, name, price);
         this.color = color;
         this.weight = weight;
